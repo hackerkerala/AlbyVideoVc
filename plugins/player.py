@@ -61,9 +61,9 @@ async def add_to_playlist(_, message: Message):
                 k=await message.reply("This command is only for admins.")
                 await delete_messages([message, k])
                 return
-        msg = await message.reply_text("⚡️ **Checking recived input..**")
+        msg = await message.reply_text("⚡️ **Checking recived file..**")
         if message.reply_to_message and message.reply_to_message.video:
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+            await msg.edit("⚡️ **Checking for Telegram Media...**")
             type='video'
             m_video = message.reply_to_message.video       
         elif message.reply_to_message and message.reply_to_message.document:
@@ -102,7 +102,7 @@ async def add_to_playlist(_, message: Message):
                         LOGGER.error("Unable to get video properties within time.")
                     if not width or \
                         not height:
-                        await msg.edit("This is an invalid link, provide me a direct link or a youtube link.")
+                        await msg.edit("This is an invalid link, provide me a direct link or a youtube link.If it is a error repoty it to @i_am_albin_praveen")
                         await delete_messages([message, msg])
                         return """
                 #else:
@@ -151,11 +151,11 @@ async def add_to_playlist(_, message: Message):
             await msg.edit("Media added to playlist")
         elif type=="youtube" or type=="query":
             if type=="youtube":
-                await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                await msg.edit("⌛ **Fetching Video From Servers...**")
                 url=yturl
             elif type=="query":
                 try:
-                    await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                    await msg.edit("⌛ **Fetching Video From Servers...**")
                     ytquery=ysearch
                     results = YoutubeSearch(ytquery, max_results=1).to_dict()
                     url = f"https://youtube.com{results[0]['url_suffix']}"
@@ -179,7 +179,7 @@ async def add_to_playlist(_, message: Message):
             except Exception as e:
                 LOGGER.error(e)
                 await msg.edit(
-                    f"YouTube Download Error ❌\nError:- {e}"
+                    f"YouTube Server Download Error ❌\nError:- {e}"
                     )
                 LOGGER.error(str(e))
                 await delete_messages([message, msg])
@@ -280,7 +280,7 @@ async def yt_play_list(client, m: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
         if m.reply_to_message is not None and m.reply_to_message.document:
             if m.reply_to_message.document.file_name != "YouTube_PlayList.json":
-                k=await m.reply("Invalid PlayList file given. Use @GetPlayListBot  or search for a playlist in @DumpPlaylist to get a playlist file.")
+                k=await m.reply("Invalid PlayList file given. Use @GetPlayListBot to get a playlist file.")
                 await delete_messages([m, k])
                 return
             ytplaylist=await m.reply_to_message.download()
@@ -303,7 +303,7 @@ async def yt_play_list(client, m: Message):
             else:
                 await delete_messages([m, status])
         else:
-            k=await m.reply("No playList file given. Use @GetPlayListBot  or search for a playlist in @DumpPlaylist to get a playlist file.")
+            k=await m.reply("No playList file given. Use @GetPlayListBot to get a playlist file.")
             await delete_messages([m, k])
 
 
