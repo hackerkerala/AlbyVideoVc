@@ -144,7 +144,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             
         if not (query.from_user is None or query.from_user.id in admins):
             await query.answer(
-                "😒 Played Joji.mp3",
+                "😒 WHO THE HELL ARE YOU (Nee ethada myre)",
                 show_alert=True
                 )
             return
